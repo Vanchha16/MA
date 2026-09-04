@@ -1,0 +1,9 @@
+{
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "dart.flutterHotReloadOnSave": "always",
+    "editor.formatOnSave": true,
+    "editor.lightbulb.enabled": "on",
+    "dart.previewFlutterUiGuides": true,
+    "dart.previewFlutterOutline": true
+}

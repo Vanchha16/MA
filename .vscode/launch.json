@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "1. Flutter (Web Server - Open tab in your open Chrome)",
+            "type": "dart",
+            "request": "launch",
+            "deviceId": "web-server",
+            "args": [
+                "--web-port=3000"
+            ]
+        },
+        {
+            "name": "2. Flutter (Auto-launch Loum Chrome - Close Chrome first)",
+            "type": "dart",
+            "request": "launch",
+            "deviceId": "chrome",
+            "args": [
+                "--web-port=3000",
+                "--web-browser-flag=--user-data-dir=C:/Users/Vanchha/AppData/Local/Google/Chrome/User Data",
+                "--web-browser-flag=--profile-directory=Default"
+            ]
+        }
+    ]
+}
