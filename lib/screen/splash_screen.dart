@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'home_screen.dart';
+import 'login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -38,19 +38,19 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.forward();
 
-    _timer = Timer(const Duration(seconds: 3), _navigateToHome);
+    _timer = Timer(const Duration(seconds: 3), _navigateToLogin);
   }
 
-  void _navigateToHome() {
+  void _navigateToLogin() {
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const HomeScreen(),
+            const LoginScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return FadeTransition(opacity: animation, child: child);
         },
-        transitionDuration: const Duration(milliseconds: 1000),
+        transitionDuration: const Duration(milliseconds: 800),
       ),
     );
   }
@@ -71,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen>
       child: Scaffold(
         backgroundColor: const Color(0xFF53B175),
         body: GestureDetector(
-          onTap: _navigateToHome,
+          onTap: _navigateToLogin,
           behavior: HitTestBehavior.opaque,
           child: Center(
             child: FadeTransition(
