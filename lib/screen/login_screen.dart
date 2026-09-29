@@ -2,6 +2,7 @@ import 'package:first_app/screen/home_screen.dart';
 import 'package:first_app/screen/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,8 +27,15 @@ class _LoginScreenState extends State<LoginScreen> {
   void login() async {
     String email = 'jonh@gmail.com';
     String password = '123';
+    final SharedPreferences _sharePreference =
+        await SharedPreferences.getInstance();
+
     if (email == _emailController.text &&
         password == _passwordController.text) {
+      await _sharePreference.setString(
+        'pos.token',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNzA4MzQ1MTIzLCJleHAiOjE3MDgzNTUxMjN9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+      );
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -38,22 +46,19 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (context) => Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              20,
-            ), // 🔵 rounded corners, not sharp
+            borderRadius: BorderRadius.circular(20),
           ),
           insetPadding: const EdgeInsets.symmetric(horizontal: 32),
           child: Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
-              mainAxisSize:
-                  MainAxisSize.min, // 📏 shrink to content, don't fill screen
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Lottie.asset(
                   'assets/lotties/Erroranimation.json',
                   width: 140,
                   height: 140,
-                  repeat: false, // ⏹️ play once, not looping forever
+                  repeat: false,
                 ),
                 const SizedBox(height: 16),
                 const Text(
