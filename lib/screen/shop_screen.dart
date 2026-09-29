@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:first_app/models/product.dart';
+import 'package:first_app/screen/productdetail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -218,79 +219,99 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Widget _buildProductCard(Product product) {
-    return Container(
-      width: 170,
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFE2E2E2)),
+    return TextButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(product: product),
+          ),
+        );
+      },
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+        shadowColor: Colors.black,
+        elevation: 2,
+        surfaceTintColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+          side: BorderSide(color: const Color(0xFFE2E2E2)),
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Center(
-              child: Image.asset(
-                product.image,
-                fit: BoxFit.contain,
-                height: 280,
-              ),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            product.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF181725),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            product.subtitle,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFF7C7C7C),
-            ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                '\$${product.price.toStringAsFixed(2)}',
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF181725),
+      child: Container(
+        width: 170,
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: const Color(0xFFE2E2E2)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Center(
+                child: Image.asset(
+                  product.image,
+                  fit: BoxFit.contain,
+                  height: 280,
                 ),
               ),
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF53B175),
-                    borderRadius: BorderRadius.circular(14),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              product.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF181725),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              product.subtitle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF7C7C7C),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  '\$${product.price.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF181725),
                   ),
-                  child: const Icon(Icons.add, color: Colors.white, size: 22),
                 ),
-              ),
-            ],
-          ),
-        ],
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 38,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF53B175),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: const Icon(Icons.add, color: Colors.white, size: 22),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
