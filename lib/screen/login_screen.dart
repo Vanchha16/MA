@@ -1,4 +1,7 @@
+import 'package:first_app/screen/home_screen.dart';
+import 'package:first_app/screen/signup_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,10 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _emailController =
-      TextEditingController(text: 'imshuvo97@gmail.com');
-  final TextEditingController _passwordController =
-      TextEditingController(text: '12345678');
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   bool _obscurePassword = true;
 
@@ -22,8 +23,70 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _handleLogin() {
-    Navigator.of(context).pushReplacementNamed('/home');
+  void login() async {
+    String email = 'jonh@gmail.com';
+    String password = '123';
+    if (email == _emailController.text &&
+        password == _passwordController.text) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+        (route) => false,
+      );
+    } else {
+      await showDialog(
+        context: context,
+        builder: (context) => Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              20,
+            ), // 🔵 rounded corners, not sharp
+          ),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 32),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize:
+                  MainAxisSize.min, // 📏 shrink to content, don't fill screen
+              children: [
+                Lottie.asset(
+                  'assets/lotties/Erroranimation.json',
+                  width: 140,
+                  height: 140,
+                  repeat: false, // ⏹️ play once, not looping forever
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  'Something went wrong',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Please check your email and password, then try again.',
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text('Try Again'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -244,7 +307,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: double.infinity,
                     height: 65,
                     child: ElevatedButton(
-                      onPressed: _handleLogin,
+                      onPressed: login,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF53B175),
                         elevation: 0,
@@ -270,15 +333,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   Center(
                     child: GestureDetector(
                       onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Sign Up clicked',
-                              style: TextStyle(fontFamily: 'Poppins'),
-                            ),
-                            duration: Duration(milliseconds: 900),
-                            backgroundColor: Color(0xFF53B175),
-                            behavior: SnackBarBehavior.floating,
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpScreen(),
                           ),
                         );
                       },
